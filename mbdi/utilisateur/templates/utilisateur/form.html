@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+    <title>Document</title>
+</head>
+<body class="body">
+    {% block content %}
+
+    <center>
+        
+        <div class="logo"><img src={% static "image/logo.png" %} width="125" height="125" alt="LOGO"></div>
+        <div class="entete">
+            <div class="titre-ent"><h1>MBDI ASSISTANCE</h1></div>
+            <div class="soustitre-ent"><h2>Dépannage / Remorquage / Transport</h2></div>
+        
+            <div class="para-ent"><p> MBDI Assistance se déplace sur toute la France et ses pays voisins <br>
+            Nous assurons le dépannage - Remorquage - Transport
+            De tout véhicules, motos, voitures, utilitaires</p></div>
+        </div>
+        
+        
+        <div class="divnav" >
+            <li><a href="default.html">Acceuil</a></li>
+            <li><a href="news.asp">Services</a></li>
+            <li><a href="contact.asp">Contact</a></li>
+        </div>
+        
+        <center>
+            <div class="form-para1">
+                <div class="titre-para1">
+                <h3>SERVICE - PROFESSIONALISME - RAPIDITE </h3></div>
+                <p>Tels sont les mots d'ordre de MBDI , des PROFESSIONELS PERFORMANT
+                pret a intervenir 24/24   7J/7 en moins de 30                                                                                         OCALISER</p></div>   
+            </div>
+            
+            <form onclick="getLocation()" method="POST" action="" id="post-form">
+               <p class="infoform">Nom</p>
+                <label  for="username" ></label><input id="username" name="name" type="text" style="height:30px;">
+               <p class="infoform">Numero</p>
+                <label  for="num"></label><input id="num" name="num" type="text"style="height:30px; ">
+                <label for="longi"></label><input id="longi" name="longi"  type=hidden>
+                <label for="lati"></label><input id="lati" name="lati"  type=hidden>
+                </center> 
+            <div class="form-but">
+                    <div ><p >Envoyez Votre Position !</p></div>
+                    <button>  <img type="submit" src="{% static "image/carte2.png" %}" width="100" height="100">  </button>
+                </div>
+                
+                {% csrf_token %}
+            </form>
+            </div>
+        <form method="POST" action=""></form>
+        
+        <h2>NOS SERVICES</h2>
+        
+        <div><p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, eum. Mollitia optio nulla animi, aliquid dolore distinctio. Neque quas in beatae provident officia corporis corrupti! Fuga pariatur illo explicabo soluta!
+            llat, sit quos hic error. Nisi, nulla? Quasi corporis rem doloremque, asperiores ipsum voluptates illum qui.</p>
+            </div>
+        <br><br>
+        <h2>EN PANNE ? </h2>
+        <br>
+        <p>Nos equipes sont pretes a intervenir a tout endroit grace a notre systeme de geolocalisation en temps reel</p>
+        <p>remplissez le formulaire ci dessous afin d'etre localiser et contacté par un membre de notre equipe</p>
+        
+        
+        
+        
+        
+        
+        
+        </center>
+        
+        <script type="text/javascript">
+        
+        function getLocation(){
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(getPosition)
+        
+            }else{
+                p.innerHTML = "VOTRE NAVIGATEUR N'EST PAS SUPORTE"
+            }
+        }
+        
+        function getPosition(position){
+            longi = position.coords.longitude;
+            lati =  position.coords.latitude;
+            document.getElementById("longi").value=longi;
+            document.getElementById("lati").value=lati;
+            
+        }
+        
+        </script>
+</body>
+</html>
+
+
+
+
+{%endblock%}

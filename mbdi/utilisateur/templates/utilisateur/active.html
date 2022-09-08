@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang="fr">
+<head>
+    {% load static %}
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    
+</head>
+<body class="body">
+
+{% block content %}
+
+<h1 style="text-align: center;">DEPANAGE TERMINE </h1>
+   
+{% if user.is_authenticated %}
+    <div id="name-data" class="name-data">
+
+    </div>
+{% endif %}
+    
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        setInterval(function(){
+            $.ajax({
+                type:'GET',
+                url:"{% url 'getdatabis' %}",
+                success: function(response){
+                    $("#name-data").empty();
+                    for(key in response.profiles){
+                        const curentdata = '<div class="client"><div class="infos"><div class="intervenant">INTERVENANT : '+ response.profiles[key].fait_par+' </div><div  class="nom" > NOM   :    '+response.profiles[key].name+ '</div><div class="numero" > NUMERO  :   '+response.profiles[key].num+' </div><div class="date" >'+response.profiles[key].jour+'</div></div><div class="button"><div class="nav"><form method="POST" action=""><input name="name" value="'+response.profiles[key].name+'"  type=hidden><input name="num" value="'+response.profiles[key].num+'" type=hidden><input name="longi" value="'+response.profiles[key].longi+'"  type=hidden><input name="lati" value="'+response.profiles[key].lati+'"  type=hidden><button>NAV</button>{% csrf_token %}</form></div><div class="sup" ><a href="deleteact/'+response.profiles[key].id+ '" class="btn btn-primary"><img src="{% static "image/iconsup.png" %}"alt="SUPRIMER"></a></div></div></div></div>'
+                        
+                        console.log(response.profiles[key].jour);
+                            $("#name-data").append(curentdata);
+                           
+                            
+                                            
+                    }
+                },
+            
+                error:function(response){
+                    
+                }
+            })
+
+
+
+        }, 1000)
+    })
+
+</script>
+{%endblock%}
+
+</body>
+</html>

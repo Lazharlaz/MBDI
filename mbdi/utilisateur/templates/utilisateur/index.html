@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+
+<h1 style="text-align: center;">LISTE DES GENS EN PANNE </h1>
+
+
+
+    
+    
+        
+{% if user.is_authenticated %}
+    <div id="name-data" class="name-data">
+
+    </div>
+    {% endif %}
+    
+
+    
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        setInterval(function(){
+            $.ajax({
+                type:'GET',
+                url:"{% url 'getdata' %}",
+                success: function(response){
+                    $("#name-data").empty();
+                    for(key in response.profiles){
+                        const curentdata = '<div class="client"><div class="infos"><div  class="nom" > NOM   :    '+response.profiles[key].name+ '</div><div class="numero" > NUMERO  :   '+response.profiles[key].num+' </div><div class="date" >'+response.profiles[key].jour+'</div></div><div class="button"><div class="nav"><form method="POST" action=""><input name="name" value="'+response.profiles[key].name+'"  type=hidden><input name="num" value="'+response.profiles[key].num+'" type=hidden><input name="longi" value="'+response.profiles[key].longi+'"  type=hidden><input name="lati" value="'+response.profiles[key].lati+'"  type=hidden><input name="fait_par" type=hidden value="{{ request.user.username }}"><button {% url 'deletecurent' 'response.profiles[key].id'  %} type="submit">NAV</button>{% csrf_token %}</form></div><div class="sup" ><a href="delete/'+response.profiles[key].id+ '" class="btn btn-primary"><img src="{% static "image/iconsup.png" %}"alt="SUPRIMER"></a></div></div></div></div>'
+                        
+                        console.log(response.profiles[key].jour);
+                            $("#name-data").append(curentdata);
+                           
+                            
+                                            
+                    }
+                },
+            
+                error:function(response){
+                    
+                }
+            })
+
+
+
+        }, 1000)
+    })
+
+</script>
+
+          
+{% endblock %} 

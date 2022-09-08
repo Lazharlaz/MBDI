@@ -1,0 +1,29 @@
+
+ {% extends 'base.html' %}
+ {% block content %}
+ {% load static %}
+ <center>
+    <div class="delete">
+        <div class="titredel"> <h1>ETES VOUS SUR DE VOULOIR SUPRIMER {{ name }} ?</h1></div>
+
+ 
+    <div class="deletbut">
+        
+            <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <button><img src="{% static "image/valsup.png" %}" width="40" height="40"></button>
+                
+            
+             </form>
+        
+ 
+
+    <a href="{% url 'home' %}"><img src="{% static "image/anulsup.png" %}" width="40" height="40"></a>
+
+
+</div>
+</div>
+</center>
+
+ 
+ {% endblock %}
